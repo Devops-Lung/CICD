@@ -1,0 +1,9 @@
+
+hosts: training
+  become: yes
+  tasks:
+    - name: Ping host
+      ping: ~
+    - name: Install nginx
+      yum:
+        name: nginx
