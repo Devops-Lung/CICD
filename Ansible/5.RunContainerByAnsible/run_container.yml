@@ -1,0 +1,15 @@
+---
+- name: Run container  
+  hosts: AnsibleHost
+  become: true
+  become_user: root
+  tasks:
+  - name: Run container from pulled image
+    community.docker.docker_container:
+        name: "SQL_Server"
+        image: "honhulung/quickappdb"
+        pull: yes
+        state: started
+        exposed_ports: 1433
+        command: ["sleep", "infinity"]
+      

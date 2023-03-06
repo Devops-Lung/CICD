@@ -1,0 +1,10 @@
+---
+- name: Pull Docker Image From DockerHub 
+  hosts: AnsibleHost
+  become: true
+  become_user: root
+  tasks:
+  - name: Pull my Docker Image 
+    community.docker.docker_image:
+      name: honhulung/quickappdb
+      source: pull

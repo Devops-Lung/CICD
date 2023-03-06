@@ -1,0 +1,31 @@
+---
+- name: Clone Build Run a Dockerfile from Github
+  hosts: AnsibleHost
+  become: true
+  become_user: root
+  tasks:
+   - name: Clone a github repository
+     ansible.builtin.git:
+       repo: https://github.com/Devops-Lung/FPT_DevOps.git
+       dest: ~/dockerhub/
+       clone: yes
+       update: yes
+       
+   - name: Build Dockerfile from dockerhub
+     community.docker.docker_image:
+       build:
+         path: ~/dockerhub/FPT_DevOps/Dockerfile
+       name: nginx-server
+       source: build
+
+
+   - name: Run container present
+     community.docker.docker_container:
+        name: "NGINX-SV"
+        image: "nginx-server"
+        pull: yes
+        state: started
+        exposed_ports: 8090
+        command: ["sleep", "infinity"]
+
+      
